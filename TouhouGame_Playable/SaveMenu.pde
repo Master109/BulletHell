@@ -44,7 +44,7 @@ void saveMenu()
   buttons[10].isVisible = true;
   buttons[11].isVisible = true;
   buttons[14].isVisible = true;
-  buttons[17].isVisible = true;
+  //buttons[17].isVisible = true;
 
   if (buttons[10].pressed)
   {
@@ -76,11 +76,11 @@ void saveMenu()
   buttons[11].show();
   buttons[14].run();
   buttons[14].show();
-  buttons[17].run();
-  buttons[17].show();
+  //buttons[17].run();
+  //buttons[17].show();
   buttons[10].pressed = false;
   buttons[11].pressed = false;
   buttons[14].pressed = false;
-  buttons[17].pressed = false;
+  //buttons[17].pressed = false;
 }
 

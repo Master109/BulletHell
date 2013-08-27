@@ -18,7 +18,8 @@ class BulletWiggle extends Bullet
 
   void show()
   {
-    fill(BULLET_WIGGLE_COLOR);
+    if (!madeByPlayer)
+      fill(BULLET_WIGGLE_COLOR);
 
     super.show();
   }

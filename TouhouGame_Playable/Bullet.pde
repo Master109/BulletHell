@@ -1,6 +1,6 @@
 class Bullet extends GameObject
 {
-  int bulletSize;
+  int radius;
   float speed;
   boolean madeByPlayer;
 
@@ -8,16 +8,19 @@ class Bullet extends GameObject
   {
     super(vel, loc, radius);
 
+    this.radius = radius;
     this.speed = speed;
     this.madeByPlayer = madeByPlayer;
   }
 
   void show()
   {
+    if (madeByPlayer)
+      fill(0, 255, 0);
     noStroke();
-    ellipse(loc, bulletSize);
+    ellipse(loc, radius * 2);
     fill(255, 70);
-    ellipse(loc, bulletSize + 50);
+    ellipse(loc, radius + 50);
   }
 
   boolean run()
@@ -43,13 +46,13 @@ class Bullet extends GameObject
     {
       PVector playerCenter = new PVector(p.loc.x - p.radius, p.loc.y);
       float distance = loc.dist(playerCenter);
-      
-      if (distance <= bulletSize / 2)
+
+      if (distance <= radius / 2)
       {
         paused = true;
         return false;
       }
-      else if (distance <= bulletSize / 2 + 22.5)
+      else if (distance <= radius / 2 + 22.5)
       {
         float grazeIntoScoreModifier2 = 0;
         if (perkEquiped[4] == 1)
@@ -78,7 +81,7 @@ class Bullet extends GameObject
     vel.setMag(speed);
     super.run();
 
-    if (loc.dist(new PVector(width / 2, height / 2)) >= width * 2 + (bulletSize / 2))
+    if (loc.dist(new PVector(width / 2, height / 2)) >= width * 2 + (radius / 2))
       return false;
 
     return true;

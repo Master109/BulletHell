@@ -6,8 +6,7 @@ class Mist extends GameObject
   Mist(PVector loc, int a)
   {
     super(new PVector(), loc, 10);
-    
-    this.loc = loc;
+
     this.a = a;
     this.exists = true;
   }
@@ -22,11 +21,11 @@ class Mist extends GameObject
   boolean run()
   {
     a -= int(random(5, 10));
-      
+
     PVector locNew = PVector.random2D();
     locNew.setMag(3);
     loc.add(locNew);
-    
+
     return a <= 0; //the mist dies when it becomes transparent
   }
 }

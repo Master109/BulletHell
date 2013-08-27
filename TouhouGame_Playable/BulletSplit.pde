@@ -17,9 +17,7 @@ class BulletSplit extends Bullet
 
   void show()
   {
-    if (madeByPlayer)
-      fill(0, 255, 0);
-    else
+    if (!madeByPlayer)
       fill(255, 0, 255);
 
     super.show();
@@ -38,14 +36,14 @@ class BulletSplit extends Bullet
       {
         rotateAmount.x = m * cos(a);
         rotateAmount.y = m * sin(a);
-        gameObjects.add(new Bullet(copy(rotateAmount), copy(loc), bulletSize, 8.0, false));
+        gameObjects.add(new Bullet(copy(rotateAmount), copy(loc), radius, 8.0, false));
       }
       splitTimeCurrent = 0;
-      
+
       return false;
     }
     splitTimeCurrent ++;
-    
+
     return true;
   }
 }

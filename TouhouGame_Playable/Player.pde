@@ -8,7 +8,7 @@ class Player extends GameObject
   Player(PVector vel, PVector loc, PVector nextLoc, int radius, int hp, int shootTime, float speed, boolean facingRight)
   {
     super(vel, loc, radius);
-    
+
     this.vel = vel;
     this.loc = loc;
     this.nextLoc = nextLoc;
@@ -81,7 +81,7 @@ class Player extends GameObject
       direction.x = m * cos(a);
       direction.y = m * sin(a);
 
-      gameObjects.add(new Bullet(copy(direction), new PVector(loc.x - p.radius, loc.y), 5, 8.0, true));
+      gameObjects.add(new Bullet(copy(direction), new PVector(loc.x - p.radius, loc.y), 3, 8.0, true));
 
       shootTime = 0;
     }
@@ -91,29 +91,22 @@ class Player extends GameObject
       facingRight = false; 
     else if (keyCode == RIGHT)
       facingRight = true;
-      
+
     move();
     super.run();
-    
+
     //Now let's check if the player has been killed
-    for(Bullet obj: getBullets())
+    for (Bullet obj: getBullets())
     {
-      if(loc.dist(obj.loc) < obj.radius)
-      {
-        print("HIT!");
-        print(obj.loc);
-        print(loc);
+      if (loc.dist(obj.loc) < obj.radius && !obj.madeByPlayer)
         shouldRestart = true;
-      }
     }
-      
+
     return true;
   }
 
   void move()
   {
-    vel.set(0, 0, 0);
-
     if (keys[4])
       speed = 2;
     else
@@ -136,6 +129,7 @@ class Player extends GameObject
     boolean onMap = nextLoc.x - p.radius > 0 && nextLoc.x - p.radius < width && nextLoc.y > 0 && nextLoc.y < height;
     if (onMap)
       loc.set(nextLoc);
+    vel.set(0, 0, 0);
   }
 }
 

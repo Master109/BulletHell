@@ -28,13 +28,8 @@ class Enemy extends GameObject
 
   void show()
   {
-    fill(255, 0, 0, 0);
-    for (int strokeWeight = 1; strokeWeight < 20; strokeWeight += 5)
-    {
-      stroke(255, 0, 0, 50);
-      strokeWeight(strokeWeight);
-      ellipse(loc, radius);
-    }
+    fill(255, 0, 0);
+    ellipse(loc, radius);
   }
 
   //Returns true when the enemy survives
@@ -45,7 +40,7 @@ class Enemy extends GameObject
     {
 assert currentWayPoint < wayPoints.length :       
       "Error: currentWayPoint >= wayPoints.length. Talk with Rafi.";
-      
+
       PVector wayPointWeAreGoingTowards = wayPoints[currentWayPoint];
       vel = PVector.sub(wayPointWeAreGoingTowards, loc);
       vel.setMag(speed);

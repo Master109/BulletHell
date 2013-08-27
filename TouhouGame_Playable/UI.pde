@@ -17,7 +17,7 @@ void keyPressed()
     else if (key == 'r' || key == 'R')
     {
       keys[5] = true;
-      
+
       if (shouldRestart)
         reset();
     }
@@ -149,13 +149,9 @@ void keyReleased()
 void mouseReleased()
 {
   for (int i = 0; i < BUTTON_NUM; i ++)
-  {
     if (buttons[i].isVisible)
-    {
       if (buttons[i].beingPressed && mouseX > buttons[i].loc.x - (buttons[i].buttonSize.x / 2) && mouseX < buttons[i].loc.x + (buttons[i].buttonSize.x / 2) && mouseY > buttons[i].loc.y - (buttons[i].buttonSize.y / 2) && mouseY < buttons[i].loc.y + (buttons[i].buttonSize.y / 2))
         buttons[i].pressed = true;
-    }
-  }
 }
 
 //This is called by draw
@@ -238,15 +234,15 @@ void goToLevel()
 
 void showStats()
 {
-   textAlign(LEFT, TOP);
-      fill(0);
-      text("Score: " + score, 0, 0);
-      textAlign(CENTER, TOP);
-      text("Kills: " + kills, width / 2, 0);
-      text("Graze: " + graze, width / 2, FONT_SIZE);
-      text("Time: ", width / 2, FONT_SIZE * 2);
-      text(playTimer, width / 2, FONT_SIZE * 3);
-      textAlign(RIGHT, TOP);
-      text("Bombs: " + bombNum, width, 0);
+  textAlign(LEFT, TOP);
+  fill(0);
+  text("Score: " + score, 0, 0);
+  textAlign(CENTER, TOP);
+  text("Kills: " + kills, width / 2, 0);
+  text("Graze: " + graze, width / 2, FONT_SIZE);
+  text("Time: ", width / 2, FONT_SIZE * 2);
+  text(playTimer, width / 2, FONT_SIZE * 3);
+  textAlign(RIGHT, TOP);
+  text("Bombs: " + bombNum, width, 0);
 }
 

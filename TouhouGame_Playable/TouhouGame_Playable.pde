@@ -214,7 +214,7 @@ void draw()
 {
   fill(127.5, 175);
   rect(width / 2, height / 2, width, height + 2);
-  
+
   for (int i = 0; i < BUTTON_NUM; i ++)
     buttons[i].isVisible = false;
 
@@ -267,7 +267,7 @@ void draw()
   for (int i = 0; i <= NUM_OF_ENEMY_TYPES - 1; i ++)
     enemyAppearTimes[i] ++;
 
-  showGrid();
+  //showGrid();
 
   makeEnemies();
 
@@ -295,30 +295,30 @@ void draw()
   //show all of the game objects
   for (GameObject obj : gameObjects)
     obj.show();
-    
+
+  showStats();
+
+  showAchievementsNotifications();
+
   if (shouldRestart)
   {
     print("restart");
     return;
   }
-  
+
   if (paused)
   {
     print("paused");
     return;
   }
-  
+
   //we're cloning the array to avoid incurring cuncurrent modification
   gameObjectsCopy = gameObjects;
   gameObjects = new ArrayList<GameObject>();
-  
+
   for (GameObject obj : gameObjectsCopy)
     if (obj.run())
       gameObjects.add(obj);
-      
-  showStats();
-
-  showAchievementsNotifications();
 }
 
 void showGrid()
