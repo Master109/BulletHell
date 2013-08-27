@@ -1,4 +1,5 @@
 Player p;
+
 Level1 l1;
 Level2 l2;
 Boss1 b1;
@@ -64,7 +65,7 @@ final PVector NO_WAYPOINT = new PVector(-1, -1);
 
 void setup()
 {
-  size(925, 715, OPENGL);
+  size(displayWidth, displayHeight, OPENGL);
   smooth();
 
   strokeWeight(5);
@@ -128,7 +129,7 @@ void setup()
   highScores = new ArrayList<Float>();
   highScores.add(float(data[0][19]));
   highScores.add(float(data[0][20]));
-  backgroundSquares = new BackgroundSquare[999][999];
+
   buttons = new Button[BUTTON_NUM];
   buttons[0] = new Button(new PVector(250, 125), FONT_SIZE, "Reload Speed - $" + reloadSpeedCost);
   buttons[1] = new Button(new PVector(250, 225), FONT_SIZE, "Unequip");
@@ -161,9 +162,13 @@ void reset()
 {
   gameObjects = new ArrayList<GameObject>();
 
-  for (int x = BACKGROUND_SQUARE_SPACING / 2; x <= width; x += BACKGROUND_SQUARE_SPACING)
-    for (int y = BACKGROUND_SQUARE_SPACING / 2; y <= height; y += BACKGROUND_SQUARE_SPACING)
-      backgroundSquares[x][y] = new BackgroundSquare(new PVector(x, y, 10), BACKGROUND_SQUARE_SPACING, new int[1]);
+  backgroundSquares = new BackgroundSquare[width/BACKGROUND_SQUARE_SPACING][height/BACKGROUND_SQUARE_SPACING];
+  for (int x = 0; x < width/BACKGROUND_SQUARE_SPACING; x++)
+    for (int y = 0; y < height/BACKGROUND_SQUARE_SPACING; y++)
+    {
+      backgroundSquares[x][y] = new BackgroundSquare(new PVector(x, y), BACKGROUND_SQUARE_SPACING);
+      gameObjects.add(backgroundSquares[x][y]);
+    }
 
   paused = false;
   shouldRestart = false;
@@ -173,8 +178,7 @@ void reset()
   else
     bombNum = 0;
   if (perkEquiped[8] == 1)
-    bombNum += bombNumCost - 6;
-  else if (perkEquiped[8] == -1)
+    bombNum += bombNumCost - 6; else if (perkEquiped[8] == -1)
     bombNum -= 3;
 
   playTimer = 0;
@@ -214,7 +218,7 @@ void draw()
 {
   fill(127.5, 175);
   rect(width / 2, height / 2, width, height + 2);
-  
+
   for (int i = 0; i < BUTTON_NUM; i ++)
     buttons[i].isVisible = false;
 
@@ -227,19 +231,16 @@ void draw()
   {
     helpScreen();
     return;
-  }
-  else if (inShop)
+  } else if (inShop)
   {
     shop();
     return;
-  }
-  else if (viewingAchievements)
+  } else if (viewingAchievements)
   {
     background(127.5);
     showAchievementList();
     return;
-  }
-  else if (viewingSaveMenu)
+  } else if (viewingSaveMenu)
   {
     saveMenu();
     return;
@@ -267,8 +268,6 @@ void draw()
   for (int i = 0; i <= NUM_OF_ENEMY_TYPES - 1; i ++)
     enemyAppearTimes[i] ++;
 
-  showGrid();
-
   makeEnemies();
 
   if (previousGrazeAchievementCounter == grazeAchievementCounter)
@@ -295,40 +294,30 @@ void draw()
   //show all of the game objects
   for (GameObject obj : gameObjects)
     obj.show();
-    
+
   if (shouldRestart)
   {
     print("restart");
     return;
   }
-  
+
   if (paused)
   {
     print("paused");
     return;
   }
-  
+
   //we're cloning the array to avoid incurring cuncurrent modification
   gameObjectsCopy = gameObjects;
   gameObjects = new ArrayList<GameObject>();
-  
+
   for (GameObject obj : gameObjectsCopy)
     if (obj.run())
       gameObjects.add(obj);
-      
+
   showStats();
 
   showAchievementsNotifications();
-}
-
-void showGrid()
-{
-  for (int x = BACKGROUND_SQUARE_SPACING / 2; x <= width; x += BACKGROUND_SQUARE_SPACING)
-    for (int y = BACKGROUND_SQUARE_SPACING / 2; y <= height; y += BACKGROUND_SQUARE_SPACING)
-    {
-      backgroundSquares[x][y].run();
-      backgroundSquares[x][y].show();
-    }
 }
 
 void clearEnemies()

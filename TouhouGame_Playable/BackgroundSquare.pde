@@ -1,26 +1,16 @@
-class BackgroundSquare
+class BackgroundSquare extends GameObject
 {
-  PVector loc;
-  int backgroundSquareSize;
-  int[] adjacentSqaures;
-
-  BackgroundSquare(PVector loc, int backgroundSquareSize, int[] adjacentSqaures)
+  BackgroundSquare(PVector loc, int radius)
   {
-    this. loc = loc;
-    this.backgroundSquareSize = backgroundSquareSize;
-    this.adjacentSqaures = adjacentSqaures;
+    super(new PVector(), loc, radius);
   }
 
   void show()
   {
     fill(0, 0);
     stroke(0, 255);
-    rect(loc, backgroundSquareSize, backgroundSquareSize);
+    rect(loc, radius);
     noStroke();
-  }
-
-  void run()
-  {
   }
 }
 
