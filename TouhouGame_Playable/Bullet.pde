@@ -27,14 +27,10 @@ class Bullet extends GameObject
     {
       for (Enemy e : getEnemies())
       {
+        //check for collision between the two circles
         if (loc.dist(e.loc) <= radius + e.radius)
         {
           e.hp --;
-          return false;
-        }
-        if (loc.dist(b1.loc) <= radius + (b1.radius))
-        {      
-          b1.hp --;
           return false;
         }
       }
@@ -78,6 +74,7 @@ class Bullet extends GameObject
     vel.setMag(speed);
     super.run();
 
+    //if the bullet is way off the screen, kill it
     if (loc.dist(new PVector(width / 2, height / 2)) >= width * 2 + (bulletSize / 2))
       return false;
 
