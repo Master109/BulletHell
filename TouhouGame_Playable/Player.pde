@@ -2,19 +2,16 @@ class Player extends GameObject
 {
   PVector nextLoc;
   int hp, shootTime, shootState;
-  float speed, shootAngle;
+  float shootAngle;
   boolean facingRight;
 
   Player(PVector vel, PVector loc, PVector nextLoc, int radius, int hp, int shootTime, float speed, boolean facingRight)
   {
-    super(vel, loc, radius);
+    super(vel, loc, radius, speed);
 
-    this.vel = vel;
-    this.loc = loc;
     this.nextLoc = nextLoc;
     this.hp = hp;
     this.shootTime = shootTime;
-    this.speed = speed;
     this.facingRight = facingRight;
 
     shootState = 1;

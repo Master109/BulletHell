@@ -2,22 +2,18 @@ class Enemy extends GameObject
 {
   PVector[] wayPoints;
   int currentWayPoint, hp, shootTimeCurrent, shootTimeDeadline, xpValue;
-  float speed, bulletSpeed;
+  float bulletSpeed;
   boolean facingRight, destroyAfterDestination;
 
   Enemy(PVector[] wayPoints, PVector vel, PVector loc, int radius, int hp, int shootTimeDeadline, int xpValue, float speed, float bulletSpeed)
   {
-    super(vel, loc, radius);
+    super(vel, loc, radius, speed);
 
     this.wayPoints = wayPoints;
-
-    this.vel = vel;
-    this.loc = loc;
 
     this.hp = hp;
     this.shootTimeDeadline = shootTimeDeadline;
     this.xpValue = xpValue;
-    this.speed = speed;
     this.bulletSpeed = bulletSpeed;
     this.facingRight = facingRight;
     this.destroyAfterDestination = destroyAfterDestination;
@@ -45,7 +41,7 @@ assert currentWayPoint < wayPoints.length :
       vel = PVector.sub(wayPointWeAreGoingTowards, loc);
       vel.setMag(speed);
 
-      if (PVector.dist(wayPointWeAreGoingTowards, loc) < speed) // if we're at the waypoint (or close enough)
+      if (PVector.dist(wayPointWeAreGoingTowards, loc) == 0) // if we're at the waypoint (or close enough)
         currentWayPoint = (currentWayPoint + 1) % wayPoints.length;
     }
 
@@ -77,7 +73,7 @@ assert currentWayPoint < wayPoints.length :
           PVector offset = PVector.random2D();
           offset.setMag(random(radius, radius + 10));
 
-          gameObjects.add(new Mist(PVector.add(loc, offset), int(random(127, 255))));
+          gameObjects.add(new Mist(copy(loc)));
         }
       }
     }

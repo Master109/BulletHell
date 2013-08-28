@@ -64,7 +64,7 @@ final float FONT_SIZE = 27;
 
 void setup()
 {
-  size(915, 725, OPENGL);
+  size(displayWidth, displayHeight, OPENGL);
   smooth();
 
   strokeWeight(5);
@@ -303,7 +303,6 @@ void draw()
   showAchievementsNotifications();
   if (shouldRestart)
   {
-    print("restart");
     return;
   }
 

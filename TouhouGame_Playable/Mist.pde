@@ -1,32 +1,29 @@
 class Mist extends GameObject
 {
   int a;
-  boolean exists;
 
-  Mist(PVector loc, int a)
+  Mist(PVector loc)
   {
-    super(new PVector(), loc, 10);
-
-    this.a = a;
-    this.exists = true;
+    super(PVector.mult(PVector.random2D(), 10), loc, 10, 5);
+    
+    a = 255;
   }
 
   void show()
   {
     stroke(255, 0, 0, a);
-    point(loc);
-    noStroke();
+    ellipse(loc, 10);
+    
+    print(loc);
   }
 
   boolean run()
   {
-    a -= int(random(5, 10));
+    super.run();
+    
+    a -= 10;
 
-    PVector locNew = PVector.random2D();
-    locNew.setMag(3);
-    loc.add(locNew);
-
-    return a <= 0; //the mist dies when it becomes transparent
+    return a > 0; //the mist dies when it becomes transparent
   }
 }
 

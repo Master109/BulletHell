@@ -1,15 +1,13 @@
 class Bullet extends GameObject
 {
   int radius;
-  float speed;
   boolean madeByPlayer;
 
   Bullet(PVector vel, PVector loc, int radius, float speed, boolean madeByPlayer)
   {
-    super(vel, loc, radius);
+    super(vel, loc, radius, speed);
 
     this.radius = radius;
-    this.speed = speed;
     this.madeByPlayer = madeByPlayer;
   }
 
@@ -17,10 +15,11 @@ class Bullet extends GameObject
   {
     if (madeByPlayer)
       fill(0, 255, 0);
+      
     noStroke();
     ellipse(loc, radius * 2);
     fill(255, 70);
-    ellipse(loc, radius + 50);
+    ellipse(loc, radius * 2 + 50);
   }
 
   boolean run()

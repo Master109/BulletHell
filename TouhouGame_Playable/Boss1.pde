@@ -94,14 +94,6 @@ class Boss1 extends Boss
         }
       }
     }
-    if (currentWayPoint == 0 && !wayPoints[1].equals(NO_WAYPOINT))
-      vel.set(PVector.sub(wayPoints[1], loc));
-
-    vel.setMag(speed);
-    loc.add(vel);
-
-    if (loc.dist(wayPoints[0]) <= speed)
-      currentWayPoint = 1;
 
     return true;
   }

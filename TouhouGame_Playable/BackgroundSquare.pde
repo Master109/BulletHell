@@ -2,7 +2,7 @@ class BackgroundSquare extends GameObject
 {
   BackgroundSquare(PVector loc, int radius)
   {
-    super(new PVector(), loc, radius);
+    super(new PVector(), loc, radius, 0);
   }
 
   void show()
