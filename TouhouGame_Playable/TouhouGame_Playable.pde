@@ -61,11 +61,10 @@ final int NUM_ACHIEVEMENTS = 3;
 final int BACKGROUND_SQUARE_SPACING = 25;
 final int SAVE_FILE_NUM = 5;
 final float FONT_SIZE = 27;
-final PVector NO_WAYPOINT = new PVector(-1, -1);
 
 void setup()
 {
-  size(displayWidth, displayHeight, OPENGL);
+  size(915, 725, OPENGL);
   smooth();
 
   strokeWeight(5);
