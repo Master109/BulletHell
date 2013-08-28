@@ -16,6 +16,7 @@ class Player extends GameObject
     this.shootTime = shootTime;
     this.speed = speed;
     this.facingRight = facingRight;
+
     shootState = 1;
   }
 
@@ -47,9 +48,11 @@ class Player extends GameObject
 
   boolean run()
   {
+    //calculate the player's current reload speed
     int reloadSpeed = 1;
     if (perkEquiped[0] == 1)
       reloadSpeed = reloadSpeedCost;
+
     if (shootTime >= 6 - (reloadSpeed - 1) && (mousePressed || autoFire))
     {
       final int BULLET_SPEED = 999999999;

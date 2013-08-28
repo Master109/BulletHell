@@ -30,14 +30,10 @@ class Bullet extends GameObject
     {
       for (Enemy e : getEnemies())
       {
+        //check for collision between the two circles
         if (loc.dist(e.loc) <= radius + e.radius)
         {
           e.hp --;
-          return false;
-        }
-        if (loc.dist(b1.loc) <= radius + (b1.radius))
-        {      
-          b1.hp --;
           return false;
         }
       }
