@@ -11,12 +11,12 @@ class Boss1 extends Boss
       wayPoints[0] = new PVector(width + 100, height / 2 - 100);
     timer2 ++;
 
-    if (hp < 200 || l1.tics == 3000)
+    if (hp < 200 || l1.tics == 4000)
       currentSection = 2;
     else if (currentWayPoint == wayPoints.length)
       currentSection = 1;
 
-    if (loc.dist(wayPoints[wayPoints.length]) <= speed)
+    if (loc.dist(wayPoints[wayPoints.length - 1]) <= speed)
       hp = 0;
 
     if (currentSection == 1)
@@ -94,14 +94,6 @@ class Boss1 extends Boss
         }
       }
     }
-    if (currentWayPoint == 0 && !wayPoints[1].equals(NO_WAYPOINT))
-      vel.set(PVector.sub(wayPoints[1], loc));
-
-    vel.setMag(speed);
-    loc.add(vel);
-
-    if (loc.dist(wayPoints[0]) <= speed)
-      currentWayPoint = 1;
 
     return true;
   }

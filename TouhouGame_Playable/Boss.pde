@@ -9,6 +9,7 @@ class Boss extends Enemy
     }
     , vel, loc, enemySize, hp, shootTimeDeadline, xpValue, speed, bulletSpeed);
 
+    this.wayPoints = wayPoints;
     this.timer2 = timer2;
     this.shootTimeDeadline2 = shootTimeDeadline2;
     this.state = state;
@@ -36,6 +37,7 @@ class Boss extends Enemy
     a += shootAngleModifier;
     spreadLoc.x = m * cos(a);
     spreadLoc.y = m * sin(a);
+
     if (spreadRange != -1)
     {
       for (float a2 = spreadLoc.heading2D(); a2 <= spreadLoc.heading2D() + spreadRange * 2; a2 += spreadRange / bulletNum)

@@ -2,22 +2,18 @@ class Enemy extends GameObject
 {
   PVector[] wayPoints;
   int currentWayPoint, hp, shootTimeCurrent, shootTimeDeadline, xpValue;
-  float speed, bulletSpeed;
+  float bulletSpeed;
   boolean facingRight, destroyAfterDestination;
 
   Enemy(PVector[] wayPoints, PVector vel, PVector loc, int radius, int hp, int shootTimeDeadline, int xpValue, float speed, float bulletSpeed)
   {
-    super(vel, loc, radius);
+    super(vel, loc, radius, speed, color(255, 0, 0));
 
     this.wayPoints = wayPoints;
-
-    this.vel = vel;
-    this.loc = loc;
 
     this.hp = hp;
     this.shootTimeDeadline = shootTimeDeadline;
     this.xpValue = xpValue;
-    this.speed = speed;
     this.bulletSpeed = bulletSpeed;
     this.facingRight = facingRight;
     this.destroyAfterDestination = destroyAfterDestination;
@@ -29,15 +25,27 @@ class Enemy extends GameObject
   void show()
   {
     fill(255, 0, 0);
+    noStroke();
+
+    //radius += random(-1, 2);
+    if (radius > 50)
+      radius -= 1;
+    else if (radius < 15)
+      radius += 1;
+
     ellipse(loc, radius);
   }
 
   //Returns true when the enemy survives
   boolean run()
   {
+    exciteMyCurrentBackgroundSquare();
+
     //If we're using waypoints
     if (wayPoints.length > 0)
     {
+      if (currentWayPoint == wayPoints.length - 1 && loc.dist(wayPoints[wayPoints.length - 1]) <= speed && destroyAfterDestination)
+        return false;
 assert currentWayPoint < wayPoints.length :       
       "Error: currentWayPoint >= wayPoints.length. Talk with Rafi.";
 
@@ -45,7 +53,7 @@ assert currentWayPoint < wayPoints.length :
       vel = PVector.sub(wayPointWeAreGoingTowards, loc);
       vel.setMag(speed);
 
-      if (PVector.dist(wayPointWeAreGoingTowards, loc) < speed) // if we're at the waypoint (or close enough)
+      if (PVector.dist(wayPointWeAreGoingTowards, loc) <= speed) // if we're at the waypoint (or close enough)
         currentWayPoint = (currentWayPoint + 1) % wayPoints.length;
     }
 
@@ -63,7 +71,8 @@ assert currentWayPoint < wayPoints.length :
       float killsIntoScoreModifier2 = 0;
       if (perkEquiped[6] == 1)
         killsIntoScoreModifier2 = killsIntoScoreModifier;
-      score += xpValue + killsIntoScoreModifier2;
+      if (currentLevel == 0)
+        score += xpValue + killsIntoScoreModifier2;
       kills ++;
       return false;
     }
@@ -77,7 +86,7 @@ assert currentWayPoint < wayPoints.length :
           PVector offset = PVector.random2D();
           offset.setMag(random(radius, radius + 10));
 
-          gameObjects.add(new Mist(PVector.add(loc, offset), int(random(127, 255))));
+          gameObjects.add(new Mist(copy(loc)));
         }
       }
     }
@@ -99,31 +108,23 @@ assert currentWayPoint < wayPoints.length :
 
     gameObjects.add(new BulletWiggle(targetLoc, copy(loc), bulletSize, wiggleAmount, wiggleChangeTimer, wiggleChangeDeadline, -1, -1, bulletSpeed, rotateAmount, false));
 
-    for (float a = spreadLoc.heading2D() + (spreadRange / bulletNum / 2); a <= targetLoc.heading2D() + (spreadRange / 2); a += spreadRange / bulletNum / 2)
+    if (spreadRange != -1)
     {
-      spreadLoc.x = m * cos(a);
-      spreadLoc.y = m * sin(a);
-      gameObjects.add(new BulletWiggle(copy(spreadLoc), copy(loc), bulletSize, wiggleAmount, wiggleChangeTimer, wiggleChangeDeadline, -1, -1, bulletSpeed, rotateAmount, false));
-    }
+      for (float a = spreadLoc.heading2D() + (spreadRange / 2); a <= targetLoc.heading2D() + (spreadRange / 2); a += spreadRange / bulletNum / 2)
+      {
+        spreadLoc.x = m * cos(a);
+        spreadLoc.y = m * sin(a);
+        gameObjects.add(new BulletWiggle(copy(spreadLoc), copy(loc), bulletSize, wiggleAmount, wiggleChangeTimer, wiggleChangeDeadline, -1, -1, bulletSpeed, rotateAmount, false));
+      }
 
-    spreadLoc = copy(targetLoc);
+      spreadLoc = copy(targetLoc);
 
-    for (float a = spreadLoc.heading2D() - (spreadRange / bulletNum / 2); a >= targetLoc.heading2D() - (spreadRange / 2); a -= spreadRange / bulletNum / 2)
-    {
-      spreadLoc.x = m * cos(a);
-      spreadLoc.y = m * sin(a);
-      gameObjects.add(new BulletWiggle(copy(spreadLoc), copy(loc), bulletSize, wiggleAmount, wiggleChangeTimer, wiggleChangeDeadline, -1, -1, bulletSpeed, rotateAmount, false));
-    }
-  }
-  void shootBulletWiggleTowards2(PVector targetLoc, PVector wiggleVel, float rotateAmount, float spreadRange, float bulletSpeed, int wiggleChangeDeadline, int wiggleChangeTimer, int wiggleAmount, int bulletSize, int bulletNum)
-  {
-    PVector spreadLoc = copy(targetLoc);
-    float m = spreadLoc.mag();
-    for (float a = spreadLoc.heading2D(); a <= targetLoc.heading2D() + spreadRange; a += spreadRange / bulletNum)
-    {
-      gameObjects.add(new BulletWiggle(copy(spreadLoc), copy(loc), bulletSize, wiggleAmount, wiggleChangeTimer, wiggleChangeDeadline, -1, -1, bulletSpeed, rotateAmount, false));
-      spreadLoc.x = m * cos(a);
-      spreadLoc.y = m * sin(a);
+      for (float a = spreadLoc.heading2D() - (spreadRange / 2); a >= targetLoc.heading2D() - (spreadRange / 2); a -= spreadRange / bulletNum / 2)
+      {
+        spreadLoc.x = m * cos(a);
+        spreadLoc.y = m * sin(a);
+        gameObjects.add(new BulletWiggle(copy(spreadLoc), copy(loc), bulletSize, wiggleAmount, wiggleChangeTimer, wiggleChangeDeadline, -1, -1, bulletSpeed, rotateAmount, false));
+      }
     }
   }
 

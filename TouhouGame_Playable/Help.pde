@@ -2,9 +2,9 @@ void helpScreen()
 {
   background(127.5);
   fill(0);
-  
+
   textAlign(CENTER, TOP);
-  
+
   text("Graze bullets and kill enemies to gain score", width / 2, 0);
   text("W: Move up", width / 2, FONT_SIZE);
   text("A: Move left", width / 2, FONT_SIZE * 2);

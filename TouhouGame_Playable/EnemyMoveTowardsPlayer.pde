@@ -8,6 +8,7 @@ class EnemyMoveTowardsPlayer extends Enemy
   void show()
   {
     fill(ENEMY_COLOR);
+    
     super.show();
   }
 

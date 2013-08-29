@@ -2,19 +2,16 @@ class Player extends GameObject
 {
   PVector nextLoc;
   int hp, shootTime, shootState;
-  float speed, shootAngle;
+  float shootAngle;
   boolean facingRight;
 
   Player(PVector vel, PVector loc, PVector nextLoc, int radius, int hp, int shootTime, float speed, boolean facingRight)
   {
-    super(vel, loc, radius);
+    super(vel, loc, radius, speed, color(0, 255, 0));
 
-    this.vel = vel;
-    this.loc = loc;
     this.nextLoc = nextLoc;
     this.hp = hp;
     this.shootTime = shootTime;
-    this.speed = speed;
     this.facingRight = facingRight;
 
     shootState = 1;
@@ -25,29 +22,22 @@ class Player extends GameObject
     fill(127.5);
     stroke(0, 255, 0);
 
-    pushMatrix();
-    if (!facingRight)
-    {
-      translate(new PVector(loc.x - p.radius, loc.y));
-      triangle(-p.radius, 0, p.radius, p.radius, p.radius, -p.radius);
-    }
-    else
-    {
-      translate(new PVector(loc.x - p.radius, loc.y));
+    translate(new PVector(loc.x, loc.y));
+    if (facingRight)
       rotate(PI);
-      triangle(-p.radius, 0, p.radius, p.radius, p.radius, -p.radius);
-    }
-    popMatrix();
+    triangle(-radius, 0, radius, radius, radius, -radius);
 
     stroke(255, 0, 0);
     strokeWeight(10);
-    point(new PVector(loc.x - p.radius, loc.y));
+    point();
     noStroke();
     strokeWeight(5);
   }
 
   boolean run()
   {
+    exciteMyCurrentBackgroundSquare();
+
     //calculate the player's current reload speed
     int reloadSpeed = 1;
     if (perkEquiped[0] == 1)
@@ -63,7 +53,7 @@ class Player extends GameObject
         direction = new PVector(-BULLET_SPEED, 0);
 
       if (perkEquiped[12] == 1)
-        bulletSprayRange = PI / 10;
+        bulletSprayRange = PI / 10; 
       else if (perkEquiped[12] == -1)
         bulletSprayRange = 0;
 
@@ -72,7 +62,7 @@ class Player extends GameObject
       if (perkEquiped[12] == 1)
       {
         if (shootAngle > bulletSprayRange)
-          shootState = 1;
+          shootState = 1; 
         else if (shootAngle < -bulletSprayRange)
           shootState = -1;
         if (shootState == -1)
@@ -84,7 +74,7 @@ class Player extends GameObject
       direction.x = m * cos(a);
       direction.y = m * sin(a);
 
-      gameObjects.add(new Bullet(copy(direction), new PVector(loc.x - p.radius, loc.y), 3, 8.0, true));
+      gameObjects.add(new Bullet(copy(direction), new PVector(loc.x, loc.y), 5, 10.0, true));
 
       shootTime = 0;
     }
@@ -101,8 +91,23 @@ class Player extends GameObject
     //Now let's check if the player has been killed
     for (Bullet obj: getBullets())
     {
-      if (loc.dist(obj.loc) < obj.radius && !obj.madeByPlayer)
-        shouldRestart = true;
+      if (!obj.madeByPlayer)
+      {
+        float distance = loc.dist(obj.loc);
+
+        if (distance < obj.radius)
+          shouldRestart = true; 
+        else if (distance < obj.radius + 20)
+        {
+          float grazeIntoScoreModifier2 = 0;
+          if (perkEquiped[4] == 1)
+            grazeIntoScoreModifier2 = grazeIntoScoreModifier;
+          score += .2 + grazeIntoScoreModifier2;
+          graze ++;
+          if (currentLevel == 0)
+            grazeAchievementCounter ++;
+        }
+      }
     }
 
     return true;
@@ -129,7 +134,7 @@ class Player extends GameObject
     }
     nextLoc.set(PVector.add(loc, vel));
 
-    boolean onMap = nextLoc.x - p.radius > 0 && nextLoc.x - p.radius < width && nextLoc.y > 0 && nextLoc.y < height;
+    boolean onMap = nextLoc.x > 0 && nextLoc.x < width && nextLoc.y > 0 && nextLoc.y < height;
     if (onMap)
       loc.set(nextLoc);
     vel.set(0, 0, 0);
