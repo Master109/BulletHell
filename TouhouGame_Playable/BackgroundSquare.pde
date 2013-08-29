@@ -17,7 +17,7 @@ class BackgroundSquare extends GameObject
     stroke(0, 255);
     strokeWeight(0);
     translate(PVector.mult(loc, BACKGROUND_SQUARE_SPACING));
-    rect(radius);
+    rect(radius - int(excitement));
     noStroke();
   }
 
@@ -32,7 +32,7 @@ class BackgroundSquare extends GameObject
     transferExcitementTo(loc.x, loc.y + 1, excitementTransfer);
     transferExcitementTo(loc.x, loc.y - 1, excitementTransfer);
 
-    excitement *= .99;
+    //excitement *= .99; //slowly get rid of any excitement
 
     excitementVel += -excitement * .01;
     excitement += excitementVel;
