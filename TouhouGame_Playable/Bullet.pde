@@ -13,13 +13,17 @@ class Bullet extends GameObject
 
   void show()
   {
+    strokeWeight(5);
+    stroke(0, 0, 100);
+    fill(0);
+    ellipse(loc, radius * 2 + 50);
+    
+    stroke(0, 0, 100);
     if (madeByPlayer)
       fill(0, 255, 0);
-      
-    noStroke();
+    else
+      fill(0, 200, 200);
     ellipse(loc, radius * 2);
-    fill(255, 70);
-    ellipse(loc, radius * 2 + 50);
   }
 
   boolean run()
@@ -37,29 +41,6 @@ class Bullet extends GameObject
         }
       }
     }
-    else //if it's made by an enemy
-    {
-      PVector playerCenter = new PVector(p.loc.x - p.radius, p.loc.y);
-      float distance = loc.dist(playerCenter);
-
-      if (distance <= radius / 2)
-      {
-        paused = true;
-        return false;
-      }
-      else if (distance <= radius / 2 + 22.5)
-      {
-        float grazeIntoScoreModifier2 = 0;
-        if (perkEquiped[4] == 1)
-          grazeIntoScoreModifier2 = grazeIntoScoreModifier;
-        score += .2 + grazeIntoScoreModifier2;
-        graze ++;
-        if (currentLevel == 0)
-          grazeAchievementCounter ++;
-      }
-      
-      gameObjects.add(new Mist(copy(loc)));
-    }
 
     //TODO: This doesn't belong here. This should be in the boss1 class
     if (b1.hp <= 0)
@@ -75,13 +56,7 @@ class Bullet extends GameObject
     }
 
 
-    vel.setMag(speed);
-    super.run();
-
-    if (loc.dist(new PVector(width / 2, height / 2)) >= width * 2 + (radius / 2))
-      return false;
-
-    return true;
+    return super.run();
   }
 }
 

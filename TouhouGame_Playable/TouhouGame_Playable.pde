@@ -52,13 +52,13 @@ boolean viewingSaveMenu;
 boolean[] shouldResetData;
 boolean inAutoSaveMode;
 
-final color ENEMY_COLOR = color(255, 0, 0);
+final color ENEMY_COLOR = color(250, 0, 0);
 final color BULLET_WIGGLE_COLOR = color(0, 0, 255);
 final color TERRAIN_COLOR = color(255);
 final int NUM_OF_ENEMY_TYPES = 4;
 final int BUTTON_NUM = 18;
 final int NUM_ACHIEVEMENTS = 3;
-final int BACKGROUND_SQUARE_SPACING = 25;
+final int BACKGROUND_SQUARE_SPACING = 40;
 final int SAVE_FILE_NUM = 5;
 final float FONT_SIZE = 27;
 
@@ -161,9 +161,9 @@ void reset()
 {
   gameObjects = new ArrayList<GameObject>();
 
-  backgroundSquares = new BackgroundSquare[width/BACKGROUND_SQUARE_SPACING][height/BACKGROUND_SQUARE_SPACING];
-  for (int x = 0; x < width/BACKGROUND_SQUARE_SPACING; x++)
-    for (int y = 0; y < height/BACKGROUND_SQUARE_SPACING; y++)
+  backgroundSquares = new BackgroundSquare[width/BACKGROUND_SQUARE_SPACING + 1][height/BACKGROUND_SQUARE_SPACING + 1];
+  for (int x = 0; x < backgroundSquares.length; x++)
+    for (int y = 0; y < backgroundSquares[0].length; y++)
     {
       backgroundSquares[x][y] = new BackgroundSquare(new PVector(x, y), BACKGROUND_SQUARE_SPACING);
       gameObjects.add(backgroundSquares[x][y]);
@@ -194,12 +194,12 @@ void reset()
   enemyAppearDeadlines[2] = 475 / timesToRun;
   enemyAppearDeadlines[3] = 2750 / timesToRun;
 
-  p = new Player(new PVector(), new PVector(width / 2, height / 2), new PVector(), 20, 1, 0, 5.0, true);
+  p = new Player(new PVector(), new PVector(width / 2, height / 2), new PVector(), 20, 1, 0, 8.0, true);
   gameObjects.add(p);
 
   if (currentLevel == 0)
   {
-    Enemy e = new EnemyShootBulletStraightTowardsPredicted(new PVector[0], new PVector(), new PVector(random(width), random(height)), 25, 15, 70, 8, 160, 7.0, 8.5, false);
+    Enemy e = new EnemyShootBulletStraightTowardsPredicted(new PVector[0], new PVector(), randomPointOnScreen(), 25, 15, 70, 8, 160, 7.0, 8.5, false);
     gameObjects.add(e);
     while (e.loc.dist (new PVector (p.loc.x - p.radius, p.loc.y)) <= 450)
       e.loc.set(random(width), random(height), 01);
@@ -216,6 +216,7 @@ void reset()
 
 void draw()
 {
+  strokeWeight(0);
   fill(127.5, 175);
   rect(width / 2, height / 2, width, height + 2);
 
@@ -273,11 +274,11 @@ void draw()
 
   makeEnemies();
 
+  //Achievements stuff
   if (previousGrazeAchievementCounter == grazeAchievementCounter)
     grazeAchievementCounter = 0;
 
   previousGrazeAchievementCounter = grazeAchievementCounter;
-
 
   for (int index = 0; index < NUM_ACHIEVEMENTS; index ++)
   {
@@ -296,21 +297,14 @@ void draw()
 
   //show all of the game objects
   for (GameObject obj : gameObjects)
+  {
+    pushMatrix();
     obj.show();
-
-  showStats();
-
-  showAchievementsNotifications();
-  if (shouldRestart)
-  {
-    return;
+    popMatrix();
   }
-
-  if (paused)
-  {
-    print("paused");
+  
+  if (shouldRestart || paused)
     return;
-  }
 
   //we're cloning the array to avoid incurring cuncurrent modification
   gameObjectsCopy = gameObjects;
@@ -319,6 +313,7 @@ void draw()
   for (GameObject obj : gameObjectsCopy)
     if (obj.run())
       gameObjects.add(obj);
+      
   showStats();
 
   showAchievementsNotifications();
@@ -326,12 +321,12 @@ void draw()
 
 void clearEnemies()
 {
-assert false : 
-  "NOT YET IMPLEMENTED. See void clearEnemies()";
+  for (GameObject obj : getEnemies())
+    gameObjects.remove(obj);
 }
 void clearBullets()
 {
-assert false : 
-  "NOT YET IMPLEMENTED. See void clearBullets()";
+  for (GameObject obj : getBullets())
+    gameObjects.remove(obj);
 }
 

@@ -21,7 +21,17 @@ class GameObject
     vel.limit(speed);
     loc.add(vel);
 
-    return true;
+    //kill the object if it goes too far off of the screen
+    return loc.dist(new PVector(width / 2, height / 2)) < width * 2;
+  }
+  
+  void exciteMyCurrentBackgroundSquare(float amount)
+  {
+    exciteBackgroundSquare(loc.x / BACKGROUND_SQUARE_SPACING, loc.y / BACKGROUND_SQUARE_SPACING, amount);
+  }
+  void exciteMyCurrentBackgroundSquare()
+  {
+    exciteMyCurrentBackgroundSquare(1);
   }
 }
 

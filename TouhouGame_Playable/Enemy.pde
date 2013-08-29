@@ -31,6 +31,8 @@ class Enemy extends GameObject
   //Returns true when the enemy survives
   boolean run()
   {
+    exciteMyCurrentBackgroundSquare();
+    
     //If we're using waypoints
     if (wayPoints.length > 0)
     {

@@ -18,15 +18,13 @@ class Mist extends GameObject
   {
     stroke(255, 0, 0, opacity);
     ellipse(loc, 10);
-    
-    print(loc);
   }
 
   boolean run()
   {
     super.run();
     
-    opacity -= random(5, 10);
+    opacity -= random(10, 20);
 
     return opacity > 0; //the mist dies when it becomes transparent
   }
