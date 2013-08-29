@@ -3,17 +3,21 @@ class GameObject
   PVector vel, loc;
   int radius;
   float speed;
+  color c;
 
-  public GameObject(PVector vel, PVector loc, int radius, float speed)
+  public GameObject(PVector vel, PVector loc, int radius, float speed, color c)
   {
     this.vel = vel;
     this.loc = loc;
     this.radius = radius;
     this.speed = speed;
+    this.c = c;
   }
 
   void show()
   {
+    fill(c);
+    ellipse(loc, radius);
   }
 
   boolean run()

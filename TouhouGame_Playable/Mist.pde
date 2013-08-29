@@ -4,9 +4,11 @@ class Mist extends GameObject
 
   Mist(PVector vel, PVector loc)
   {
-    super(vel, loc, 10, 5);
+    super(vel, loc, 10, 5, color(255));
     
     opacity = 255;
+    
+    loc.add(PVector.mult(vel, 3));
   }
 
   Mist(PVector loc)
@@ -16,8 +18,10 @@ class Mist extends GameObject
 
   void show()
   {
-    stroke(255, 0, 0, opacity);
-    ellipse(loc, 10);
+    fill(0, 0);
+    stroke(opacity, 255, 255, opacity);
+    
+    super.show();
   }
 
   boolean run()

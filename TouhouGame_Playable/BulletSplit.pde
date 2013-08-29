@@ -7,7 +7,7 @@ class BulletSplit extends Bullet
 
   BulletSplit(PVector vel, PVector loc, int bulletSize, int wiggleAmount, int wiggleChangeTimer, int wiggleChangeDeadline, int splitTimeDeadline, int splitNum, float speed, float rotateAmount, boolean madeByPlayer)
   {
-    super(vel, loc, bulletSize, speed, madeByPlayer);
+    super(vel, loc, bulletSize, speed, madeByPlayer, color(255, 0, 255));
 
     this.splitTimeCurrent = 0;
     this.splitTimeCurrent = splitTimeCurrent;

@@ -7,7 +7,7 @@ class Player extends GameObject
 
   Player(PVector vel, PVector loc, PVector nextLoc, int radius, int hp, int shootTime, float speed, boolean facingRight)
   {
-    super(vel, loc, radius, speed);
+    super(vel, loc, radius, speed, color(0, 255, 0));
 
     this.nextLoc = nextLoc;
     this.hp = hp;

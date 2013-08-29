@@ -7,7 +7,8 @@ class BulletWiggle extends Bullet
 
   BulletWiggle(PVector vel, PVector loc, int bulletSize, int wiggleAmount, int wiggleChangeTimer, int wiggleChangeDeadline, int splitTimeDeadline, int splitNum, float speed, float rotateAmount, boolean madeByPlayer)
   {
-    super(vel, loc, bulletSize, speed, madeByPlayer);
+    super(vel, loc, bulletSize, speed, madeByPlayer, color(0, 0, 255));
+    
     this.wiggleVel = new PVector();
     this.wiggleAmount = wiggleAmount;
     this.wiggleChangeTimer = 0;

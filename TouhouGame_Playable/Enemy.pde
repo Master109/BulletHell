@@ -7,7 +7,7 @@ class Enemy extends GameObject
 
   Enemy(PVector[] wayPoints, PVector vel, PVector loc, int radius, int hp, int shootTimeDeadline, int xpValue, float speed, float bulletSpeed)
   {
-    super(vel, loc, radius, speed);
+    super(vel, loc, radius, speed, color(255, 0, 0));
 
     this.wayPoints = wayPoints;
 
@@ -25,6 +25,10 @@ class Enemy extends GameObject
   void show()
   {
     fill(255, 0, 0);
+    noStroke();
+    
+    radius += random(-1, 2);
+    
     ellipse(loc, radius);
   }
 
