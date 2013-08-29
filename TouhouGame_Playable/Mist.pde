@@ -2,11 +2,16 @@ class Mist extends GameObject
 {
   int opacity;
 
-  Mist(PVector loc)
+  Mist(PVector vel, PVector loc)
   {
-    super(PVector.mult(PVector.random2D(), 10), loc, 10, 5);
+    super(vel, loc, 10, 5);
     
     opacity = 255;
+  }
+
+  Mist(PVector loc)
+  {
+    this(PVector.mult(PVector.random2D(), 10), loc);
   }
 
   void show()

@@ -57,6 +57,8 @@ class Bullet extends GameObject
         if (currentLevel == 0)
           grazeAchievementCounter ++;
       }
+      
+      gameObjects.add(new Mist(copy(loc)));
     }
 
     //TODO: This doesn't belong here. This should be in the boss1 class
