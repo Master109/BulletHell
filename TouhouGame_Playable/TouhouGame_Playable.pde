@@ -313,10 +313,13 @@ void draw()
   for (GameObject obj : gameObjectsCopy)
     if (obj.run())
       gameObjects.add(obj);
-      
+  
+  //applyBlur();
+  
   showStats();
 
   showAchievementsNotifications();
+  
 }
 
 void clearEnemies()
