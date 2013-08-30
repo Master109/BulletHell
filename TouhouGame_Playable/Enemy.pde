@@ -1,7 +1,7 @@
 class Enemy extends GameObject
 {
   PVector[] wayPoints;
-  int currentWayPoint, hp, shootTimeCurrent, shootTimeDeadline, xpValue;
+  int currentWayPoint, hp, shootTimeDeadline, xpValue;
   float bulletSpeed;
   boolean facingRight, destroyAfterDestination;
 
@@ -18,7 +18,6 @@ class Enemy extends GameObject
     this.facingRight = facingRight;
     this.destroyAfterDestination = destroyAfterDestination;
 
-    this.shootTimeCurrent = 0;
     this.currentWayPoint = 0;
   }
 
@@ -64,8 +63,6 @@ assert currentWayPoint < wayPoints.length :
     else
       facingRight = false;
 
-    shootTimeCurrent ++;
-
     if (hp <= 0)
     {
       float killsIntoScoreModifier2 = 0;
@@ -97,16 +94,14 @@ assert currentWayPoint < wayPoints.length :
   void shootBulletStraightTowards(PVector targetLoc, float bulletSpeed, int bulletSize)
   {
     gameObjects.add(new Bullet(copy(PVector.sub(targetLoc, loc)), copy(loc), bulletSize, bulletSpeed, false));
-
-    shootTimeCurrent = 0;
   }
 
-  void shootBulletWiggleTowards(PVector targetLoc, PVector wiggleVel, float rotateAmount, float spreadRange, float bulletSpeed, int wiggleChangeDeadline, int wiggleChangeTimer, int wiggleAmount, int bulletSize, int bulletNum)
+  void shootBulletWiggleTowards(PVector targetLoc, float spreadRange, float bulletSpeed, int wiggleChangeDeadline, float wiggleAmount, int bulletSize, int bulletNum)
   {
     PVector spreadLoc = copy(targetLoc);
     float m = spreadLoc.mag();
 
-    gameObjects.add(new BulletWiggle(targetLoc, copy(loc), bulletSize, wiggleAmount, wiggleChangeTimer, wiggleChangeDeadline, -1, -1, bulletSpeed, rotateAmount, false));
+    gameObjects.add(new BulletWiggle(targetLoc, copy(loc), bulletSize, wiggleAmount, wiggleChangeDeadline, bulletSpeed));
 
     if (spreadRange != -1)
     {
@@ -114,7 +109,7 @@ assert currentWayPoint < wayPoints.length :
       {
         spreadLoc.x = m * cos(a);
         spreadLoc.y = m * sin(a);
-        gameObjects.add(new BulletWiggle(copy(spreadLoc), copy(loc), bulletSize, wiggleAmount, wiggleChangeTimer, wiggleChangeDeadline, -1, -1, bulletSpeed, rotateAmount, false));
+        gameObjects.add(new BulletWiggle(copy(spreadLoc), copy(loc), bulletSize, wiggleAmount, wiggleChangeDeadline, bulletSpeed));
       }
 
       spreadLoc = copy(targetLoc);
@@ -123,7 +118,7 @@ assert currentWayPoint < wayPoints.length :
       {
         spreadLoc.x = m * cos(a);
         spreadLoc.y = m * sin(a);
-        gameObjects.add(new BulletWiggle(copy(spreadLoc), copy(loc), bulletSize, wiggleAmount, wiggleChangeTimer, wiggleChangeDeadline, -1, -1, bulletSpeed, rotateAmount, false));
+        gameObjects.add(new BulletWiggle(copy(spreadLoc), copy(loc), bulletSize, wiggleAmount, wiggleChangeDeadline, bulletSpeed));
       }
     }
   }
@@ -143,7 +138,7 @@ assert currentWayPoint < wayPoints.length :
 
   boolean isTimeToShoot()
   {
-    return shootTimeCurrent >= shootTimeDeadline;
+    return age % shootTimeDeadline == 0;
   }
 }
 

@@ -7,6 +7,19 @@ class Boss1 extends Boss
 
   boolean run()
   {
+    if (b1.hp <= 0)
+    {
+      l1.showBoss = false;
+      level1Complete = true;
+      kills ++;
+      textAlign(CENTER, CENTER);
+      text("Congratz!", width / 2, height / 2);
+      perkPoints += 3;
+      if (inAutoSaveMode)
+        saveGame();
+      return false;
+    }
+
     if (l1.tics == 4100)
       wayPoints[0] = new PVector(width + 100, height / 2 - 100);
     timer2 ++;
@@ -23,12 +36,9 @@ class Boss1 extends Boss
     {
       shootAngleModifier += 1;
       shootTimeDeadline = 13;
-      shootTimeCurrent ++;
-      if (shootTimeCurrent >= shootTimeDeadline)
-      {
+
+      if (age % shootTimeDeadline == 0)
         shootBulletStraightTowards(new PVector(width / 2, height / 2), copy(loc), PI, TWO_PI, 7.5, 17, 0, 0, 30, 10);
-        shootTimeCurrent = 0;
-      }
     }
     else if (currentSection == 2)
     {
@@ -71,11 +81,11 @@ class Boss1 extends Boss
       else if (state == -1)
         shootAngleModifier -= .007;
       shootTimeDeadline = 3;
-      shootTimeCurrent ++;
+
       shootTimeCurrent2 ++;
       if (timer2 >= 60)
       {
-        if (shootTimeCurrent >= shootTimeDeadline)
+        if (age % shootTimeDeadline == 0)
         {
           PVector bulletVel = new PVector(-1, 0);
           float m = bulletVel.mag();
@@ -85,7 +95,6 @@ class Boss1 extends Boss
           bulletVel.y = m * sin(a);
           shootBulletStraightTowards(copy(bulletVel), copy(new PVector(loc.x, loc.y - radius)), 0, -1, 7.5, 17, 0, 0, 30, 1);
           shootBulletStraightTowards(copy(bulletVel), copy(new PVector(loc.x, loc.y + radius)), 0, -1, 7.5, 17, 0, 0, 30, 1);
-          shootTimeCurrent = 0;
         }
         if (shootTimeCurrent2 >= shootTimeDeadline2)
         {

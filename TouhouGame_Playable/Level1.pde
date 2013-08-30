@@ -6,8 +6,12 @@ class Level1 extends Level
 
   void createEnemies()
   {
-    if (getEnemies().size() == 0 && tics < 840 && tics > 0)
-      tics = 840;
+    if (getEnemies().size() == 0 && tics < 870 && tics > 0)
+      tics = 870;
+    else if (getEnemies().size() == 0 && tics < 1440 && tics > 870)
+      tics = 1440;
+    else if (getEnemies().size() == 0 && tics < 3300 && tics > 1440)
+      tics = 3300;
 
     if (showBoss)
     {

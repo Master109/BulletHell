@@ -18,7 +18,7 @@ class EnemyShootHeadOn extends Enemy
 
   boolean run()
   {
-    if (isTimeToShoot())
+    if (isTimeToShoot() && age >= shootTimeDeadline)
       shootBulletStraightTowards(copy(new PVector(p.loc.x - p.radius, p.loc.y)), bulletSpeed, 20);
 
     moveTowardsLoc(new PVector(p.loc.x - p.radius, p.loc.y), curvatureLimit);

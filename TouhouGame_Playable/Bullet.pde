@@ -10,7 +10,7 @@ class Bullet extends GameObject
     this.radius = radius;
     this.madeByPlayer = madeByPlayer;
   }
-  
+
   Bullet(PVector vel, PVector loc, int radius, float speed, boolean madeByPlayer)
   {
     this(vel, loc, radius, speed, madeByPlayer, color(255, 127, 0));
@@ -23,7 +23,7 @@ class Bullet extends GameObject
     stroke(0, 0, 100);
     fill(255, 75);
     ellipse(loc, radius * 2 + 50);
-    
+
     //now draw the actual bullet
     strokeWeight(5);
     stroke(0, 127, 127);
@@ -49,20 +49,6 @@ class Bullet extends GameObject
         }
       }
     }
-
-    //TODO: This doesn't belong here. This should be in the boss1 class
-    if (b1.hp <= 0)
-    {
-      l1.showBoss = false;
-      level1Complete = true;
-      kills ++;
-      textAlign(CENTER, CENTER);
-      text("Congratz!", width / 2, height / 2);
-      perkPoints += 3;
-      if (inAutoSaveMode)
-        saveGame();
-    }
-
 
     return super.run();
   }

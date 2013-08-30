@@ -8,22 +8,20 @@ class EnemyMoveTowardsPlayer extends Enemy
   void show()
   {
     fill(ENEMY_COLOR);
-    
+
     super.show();
   }
 
   boolean run()
   {
-    if (isTimeToShoot())
+    if (isTimeToShoot() && age >= shootTimeDeadline)
     {
       Bullet b = new BulletSplit(PVector.sub(new PVector(p.loc.x - p.radius, p.loc.y), loc), copy(loc), 20, -1, -1, -1, 60, 20, 7.0, -1.0, false);
       gameObjects.add(b);
-
-      shootTimeCurrent = 0;
     }
 
-    moveTowardsYLoc(new PVector(p.loc.x - p.radius, p.loc.y));
-    
+    moveTowardsYLoc(p.loc);
+
     return super.run();
   }
 }

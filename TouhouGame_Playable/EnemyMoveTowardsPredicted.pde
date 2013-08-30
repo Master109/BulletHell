@@ -13,7 +13,7 @@ class EnemyMoveTowardsPredicted extends Enemy
 
   boolean run()
   {
-    if (isTimeToShoot())
+    if (isTimeToShoot() && age >= shootTimeDeadline)
     {
       PVector direction;
       if (facingRight)

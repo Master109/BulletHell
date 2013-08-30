@@ -64,7 +64,7 @@ final float FONT_SIZE = 27;
 
 void setup()
 {
-  size(915, 725, OPENGL);
+  size(displayWidth, displayHeight, OPENGL);
   smooth();
 
   strokeWeight(5);
@@ -199,7 +199,11 @@ void reset()
 
   if (currentLevel == 0)
   {
+<<<<<<< HEAD
     Enemy e = new EnemyShootBulletStraightTowardsPredicted(new PVector[0], new PVector(), randomPointOnScreen(), 25, 15, 70, 8, 165, 7.0, 8.5, false);
+=======
+    Enemy e = new EnemyShootBulletStraightTowardsPredicted(new PVector[0], new PVector(), randomPointOnScreen(), 25, 15, 70, 8, 160, 7.0, 8.5, false);
+>>>>>>> 7b237190d19b27a1058ca4b5422546c3fb5e19d1
     gameObjects.add(e);
     while (e.loc.dist (new PVector (p.loc.x - p.radius, p.loc.y)) <= 450)
       e.loc.set(random(width), random(height), 01);
@@ -304,7 +308,11 @@ void draw()
     obj.show();
     popMatrix();
   }
+<<<<<<< HEAD
 
+=======
+  
+>>>>>>> 7b237190d19b27a1058ca4b5422546c3fb5e19d1
   if (shouldRestart || paused)
     return;
 
@@ -315,6 +323,7 @@ void draw()
   for (GameObject obj : gameObjectsCopy)
     if (obj.run())
       gameObjects.add(obj);
+<<<<<<< HEAD
 
   //applyBlur();
 
@@ -327,6 +336,15 @@ void draw()
 
   else if (currentLevel == 2)
     l2.createEnemies();
+=======
+  
+  //applyBlur();
+  
+  showStats();
+
+  showAchievementsNotifications();
+  
+>>>>>>> 7b237190d19b27a1058ca4b5422546c3fb5e19d1
 }
 
 void clearEnemies()

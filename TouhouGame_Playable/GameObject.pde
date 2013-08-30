@@ -4,6 +4,7 @@ class GameObject
   int radius;
   float speed;
   color c;
+  int age;
 
   public GameObject(PVector vel, PVector loc, int radius, float speed, color c)
   {
@@ -12,6 +13,8 @@ class GameObject
     this.radius = radius;
     this.speed = speed;
     this.c = c;
+
+    age = 0;
   }
 
   void show()
@@ -25,10 +28,12 @@ class GameObject
     vel.limit(speed);
     loc.add(vel);
 
+    age ++;
+
     //kill the object if it goes too far off of the screen
     return loc.dist(new PVector(width / 2, height / 2)) < width * 2;
   }
-  
+
   void exciteMyCurrentBackgroundSquare(float amount)
   {
     exciteBackgroundSquare(loc.x / BACKGROUND_SQUARE_SPACING, loc.y / BACKGROUND_SQUARE_SPACING, amount);

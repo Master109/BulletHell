@@ -1,13 +1,15 @@
 class EnemyShootWigglyBulletSpread extends Enemy
 {
-  float bulletSpreadRange, rotateAmount;
-  int bulletWiggleChangeDeadline, bulletWiggleAmount, bulletSize, bulletNum;
+  float bulletSpreadRange;
+  int bulletWiggleChangeDeadline;
+  float bulletWiggleAmount;
+  int bulletSize, bulletNum;
 
-  EnemyShootWigglyBulletSpread(PVector[] wayPoints, PVector vel, PVector loc, int bulletWiggleChangeDeadline, int bulletWiggleAmount, int bulletSize, int bulletNum, int enemySize, int hp, int shootTimeDeadline, int xpValue, float rotateAmount, float speed, float bulletSpeed, float bulletSpreadRange, boolean destroyAfterDestination)
+  EnemyShootWigglyBulletSpread(PVector[] wayPoints, PVector vel, PVector loc, int bulletWiggleChangeDeadline, float bulletWiggleAmount, int bulletSize, int bulletNum, int enemySize, int hp, int shootTimeDeadline, int xpValue, float rotateAmount, float speed, float bulletSpeed, float bulletSpreadRange, boolean destroyAfterDestination)
   {
     super(wayPoints, vel, loc, enemySize, hp, shootTimeDeadline, xpValue, speed, bulletSpeed);
+
     this.bulletSpreadRange = bulletSpreadRange;
-    this.rotateAmount = rotateAmount;
     this.bulletWiggleChangeDeadline = bulletWiggleChangeDeadline;
     this.bulletWiggleAmount = bulletWiggleAmount;
     this.bulletSize = bulletSize;
@@ -22,12 +24,9 @@ class EnemyShootWigglyBulletSpread extends Enemy
 
   boolean run()
   {
-    if (isTimeToShoot())
-    {
-      shootBulletWiggleTowards(copy(PVector.sub(new PVector(p.loc.x - p.radius, p.loc.y), loc)), copy(loc), rotateAmount, bulletSpreadRange, bulletSpeed, bulletWiggleChangeDeadline, 0, bulletWiggleAmount, bulletSize, bulletNum);
+    if (isTimeToShoot() && age >= shootTimeDeadline)
+      shootBulletWiggleTowards(PVector.sub(p.loc, loc), bulletSpreadRange, bulletSpeed, bulletWiggleChangeDeadline, bulletWiggleAmount, bulletSize, bulletNum);
 
-      shootTimeCurrent = 0;
-    }
     moveTowardsLoc(new PVector(p.loc.x - p.radius, p.loc.y), 999999999);
     return super.run();
   }

@@ -53,8 +53,12 @@ class Player extends GameObject
         direction = new PVector(-BULLET_SPEED, 0);
 
       if (perkEquiped[12] == 1)
+<<<<<<< HEAD
         bulletSprayRange = PI / 10; 
       else if (perkEquiped[12] == -1)
+=======
+        bulletSprayRange = PI / 10; else if (perkEquiped[12] == -1)
+>>>>>>> 7b237190d19b27a1058ca4b5422546c3fb5e19d1
         bulletSprayRange = 0;
 
       float m = direction.mag();
@@ -62,8 +66,12 @@ class Player extends GameObject
       if (perkEquiped[12] == 1)
       {
         if (shootAngle > bulletSprayRange)
+<<<<<<< HEAD
           shootState = 1; 
         else if (shootAngle < -bulletSprayRange)
+=======
+          shootState = 1; else if (shootAngle < -bulletSprayRange)
+>>>>>>> 7b237190d19b27a1058ca4b5422546c3fb5e19d1
           shootState = -1;
         if (shootState == -1)
           shootAngle += bulletSprayRange / 7.5;
@@ -74,15 +82,18 @@ class Player extends GameObject
       direction.x = m * cos(a);
       direction.y = m * sin(a);
 
+<<<<<<< HEAD
       gameObjects.add(new Bullet(copy(direction), new PVector(loc.x, loc.y), 5, 10.0, true));
+=======
+      gameObjects.add(new Bullet(copy(direction), new PVector(loc.x - p.radius, loc.y), 10, 8.0, true));
+>>>>>>> 7b237190d19b27a1058ca4b5422546c3fb5e19d1
 
       shootTime = 0;
     }
     shootTime ++;
 
     if (keyCode == LEFT)
-      facingRight = false; 
-    else if (keyCode == RIGHT)
+      facingRight = false; else if (keyCode == RIGHT)
       facingRight = true;
 
     move();
@@ -96,8 +107,12 @@ class Player extends GameObject
         float distance = loc.dist(obj.loc);
 
         if (distance < obj.radius)
+<<<<<<< HEAD
           shouldRestart = true; 
         else if (distance < obj.radius + 20)
+=======
+          shouldRestart = true; else if (distance < obj.radius + 20)
+>>>>>>> 7b237190d19b27a1058ca4b5422546c3fb5e19d1
         {
           float grazeIntoScoreModifier2 = 0;
           if (perkEquiped[4] == 1)

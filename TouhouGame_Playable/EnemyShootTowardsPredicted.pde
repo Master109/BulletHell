@@ -18,7 +18,7 @@ class EnemyShootBulletStraightTowardsPredicted extends Enemy
   {
     PVector vec = copy(PVector.add(p.nextLoc, PVector.mult(p.vel, PVector.dist(loc, p.nextLoc) / bulletSpeed)));
 
-    if (isTimeToShoot())
+    if (isTimeToShoot() && age >= shootTimeDeadline)
       shootBulletStraightTowards(vec, bulletSpeed, bulletSize);
 
     return super.run();

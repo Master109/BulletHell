@@ -1,19 +1,15 @@
 class BulletWiggle extends Bullet
 {
-  PVector wiggleVel;
-  int wiggleAmount, wiggleChangeTimer, wiggleChangeDeadline;
-  float rotateAmount;
+  float wiggleAmount;
+  int wiggleChangeDeadline;
   boolean hasWiggled;
 
-  BulletWiggle(PVector vel, PVector loc, int bulletSize, int wiggleAmount, int wiggleChangeTimer, int wiggleChangeDeadline, int splitTimeDeadline, int splitNum, float speed, float rotateAmount, boolean madeByPlayer)
+  BulletWiggle(PVector vel, PVector loc, int bulletSize, float wiggleAmount, int wiggleChangeDeadline, float speed)
   {
-    super(vel, loc, bulletSize, speed, madeByPlayer, color(0, 0, 255));
-    
-    this.wiggleVel = new PVector();
+    super(vel, loc, bulletSize, speed, false, color(0, 0, 255));
+
     this.wiggleAmount = wiggleAmount;
-    this.wiggleChangeTimer = 0;
     this.wiggleChangeDeadline = wiggleChangeDeadline;
-    this.rotateAmount = rotateAmount;
     this.hasWiggled = false;
   }
 
@@ -27,34 +23,12 @@ class BulletWiggle extends Bullet
 
   boolean run()
   {
-    vel.limit(speed);
-    if (wiggleChangeTimer >= wiggleChangeDeadline)
-    {
-      float m = wiggleAmount;
-      if (!hasWiggled)
-      {
-        wiggleVel.set(vel);
-        float a = wiggleVel.heading2D();
-        hasWiggled = true;
-        a -= rotateAmount / 2;
-        wiggleVel.x = m * cos(a);
-        wiggleVel.y = m * sin(a);
-      }
-      else
-      {
-        float a = wiggleVel.heading2D();
-        if (a == vel.heading2D() + (rotateAmount / 2))
-          a -= rotateAmount;
-        else
-          a += rotateAmount;
-        wiggleVel.x = m * cos(a);
-        wiggleVel.y = m * sin(a);
-      }
-      wiggleChangeTimer = 0;
-    }
-    wiggleChangeTimer ++;
-
-    loc.add(wiggleVel);
+    PVector wiggleLocModifier = copy(vel);
+    wiggleLocModifier.rotate(HALF_PI);
+    wiggleLocModifier.mult(sin(age / wiggleChangeDeadline));
+    wiggleLocModifier.mult(wiggleAmount);
+    loc.add(wiggleLocModifier);
+    
     return super.run();
   }
 }
