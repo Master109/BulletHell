@@ -66,11 +66,7 @@ void setup()
   size(displayWidth, displayHeight, OPENGL);
   smooth();
 
-  strokeWeight(5);
-  noStroke();
-
   rectMode(CENTER);
-  background(255);
 
   data = new String[SAVE_FILE_NUM][27];
 
@@ -165,7 +161,7 @@ void reset()
     for (int y = 0; y < backgroundSquares[0].length; y++)
     {
       backgroundSquares[x][y] = new BackgroundSquare(new PVector(x, y), BACKGROUND_SQUARE_SPACING);
-      //gameObjects.add(backgroundSquares[x][y]);
+      gameObjects.add(backgroundSquares[x][y]);
     }
 
   paused = false;

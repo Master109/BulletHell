@@ -6,7 +6,7 @@ class Level2 extends Level
       tics = 500;
     else if (getEnemies().size() == 0 && tics < 1000 && tics > 500)
       tics = 1000;
-    else if (getEnemies().size() == 0 && tics < 3-00 && tics > 1000)
+    else if (getEnemies().size() == 0 && tics < 3000 && tics > 1000)
       tics = 3000;
 
     if (tics == 0)

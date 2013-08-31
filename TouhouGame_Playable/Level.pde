@@ -6,7 +6,7 @@ class Level
   public Level()
   {
     showBoss = false;
-    tics = 0;
+    tics = 3000;
   }
 
   void createEnemies()
