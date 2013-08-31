@@ -34,15 +34,19 @@ class Level2 extends Level
     if (tics == 1000)
     {
       clearEnemies();
+      
       Enemy e = new EnemyShootWigglyBulletSpread(new PVector[1], new PVector(), new PVector(-12.5, height / 2), 10, 1, 35, 0, 25, 25, 75, 26, PI, 2.0, 2.5, -1, false);
       e.wayPoints[0] = new PVector(12.5, height / 2);
       gameObjects.add(e);
+      
       Enemy e2 = new EnemyShootWigglyBulletSpread(new PVector[1], new PVector(), new PVector(width + 12.5, height / 2), 10, 1, 35, 0, 25, 25, 75, 26, PI, 2.0, 2.5, -1, false);
       e2.wayPoints[0] = new PVector(width - 12.5, height / 2);
       gameObjects.add(e2);
+      
       Enemy e3 = new EnemyShootWigglyBulletSpread(new PVector[1], new PVector(), new PVector(width / 2, -12.5), 10, 1, 35, 0, 25, 25, 75, 26, PI, 2.0, 2.5, -1, false);
       e3.wayPoints[0] = new PVector(width / 2, 12.5);
       gameObjects.add(e3);
+      
       Enemy e4 = new EnemyShootWigglyBulletSpread(new PVector[1], new PVector(), new PVector(width / 2, height + 12.5), 10, 1, 35, 0, 25, 25, 75, 26, PI, 2.0, 2.5, -1, false);
       e4.wayPoints[0] = new PVector(width / 2, height - 12.5);
       gameObjects.add(e4);
@@ -50,8 +54,10 @@ class Level2 extends Level
     if (tics == 3000)
     {
       clearEnemies();
-      showBoss = true;
+      clearBullets();
+      gameObjects.add(new Boss1(new PVector[]{new PVector(width, height / 2)}, new PVector(), new PVector(width + 100, height / 2), 0, 0, 25, 0, 0, 0, 200, 400, 0, 65, 8, 160, 0, 10, 1.0, 8.5, 0));
     }
+    
     super.createEnemies();
   }
 }

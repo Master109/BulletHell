@@ -6,7 +6,7 @@ class Boss extends Enemy
   Boss(PVector[] wayPoints, PVector vel, PVector loc, int enemySize, int timer2, int shootTimeDeadline2, int state, int state2, int currentWayPoint, int bossSize, int hp, int shootTimeCurrent, int shootTimeDeadline, int xpValue, int currentSection, int timer, float rotateAmount, float speed, float bulletSpeed, float shootAngleModifier)
   {
     super(new PVector[] {
-    }
+    }  
     , vel, loc, enemySize, hp, shootTimeDeadline, xpValue, speed, bulletSpeed);
 
     this.wayPoints = wayPoints;
@@ -14,20 +14,16 @@ class Boss extends Enemy
     this.shootTimeDeadline2 = shootTimeDeadline2;
     this.state = state;
     this.state2 = state2;
-    this.hp = hp;
     this.shootTimeDeadline = shootTimeDeadline;
     this.xpValue = xpValue;
     this.currentSection = currentSection;
     this.timer = timer;
-    this.speed = speed;
-    this.bulletSpeed = bulletSpeed;
-    this.facingRight = facingRight;
     this.shootAngleModifier = shootAngleModifier;
 
     //try to put more stuff down here. You'd be amazed at how many things you can just initialize to zero.
     this.shootTimeCurrent2 = 0;
   }
-
+  /*
   void shootBulletStraightTowards(PVector targetLoc, PVector shootLoc, float rotateAmount, float spreadRange, float bulletSpeed, int wiggleChangeDeadline, int wiggleChangeTimer, int wiggleAmount, int bulletSize, int bulletNum)
   {
     PVector spreadLoc = copy(targetLoc);
@@ -62,5 +58,6 @@ class Boss extends Enemy
       spreadLoc.y = m * sin(a);
     }
   }
+  */
 }
 

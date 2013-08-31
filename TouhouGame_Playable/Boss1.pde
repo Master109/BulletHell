@@ -96,13 +96,13 @@ class Boss1 extends Boss
         }
         if (shootTimeCurrent2 >= shootTimeDeadline2)
         {
-          shootBulletStraightTowards(PVector.sub(new PVector(p.loc.x - p.radius, p.loc.y), loc), copy(loc), 0, -1, 5.0, 17, 0, 0, 30, 1);
+          shootBulletStraightTowards(PVector.sub(p.loc, loc), copy(loc), 0, -1, 5.0, 17, 0, 0, 30, 1);
           shootTimeCurrent2 = 0;
         }
       }
     }
 
-    return true;
+    return super.run();
   }
 }
 

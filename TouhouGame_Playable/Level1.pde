@@ -61,6 +61,8 @@ class Level1 extends Level
     }
     else if (tics == 3300)
     {
+      clearEnemies();
+      clearBullets();
       gameObjects.add(new Boss1(new PVector[]{new PVector(width, height / 2)}, new PVector(), new PVector(width + 100, height / 2), 0, 0, 25, 0, 0, 0, 200, 400, 0, 65, 8, 160, 0, 10, 1.0, 8.5, 0));
     }
 
