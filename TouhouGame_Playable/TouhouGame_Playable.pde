@@ -2,7 +2,6 @@ Player p;
 
 Level1 l1;
 Level2 l2;
-Boss1 b1;
 
 String[][] data;
 
@@ -177,8 +176,7 @@ void reset()
   else
     bombNum = 0;
   if (perkEquiped[8] == 1)
-    bombNum += bombNumCost - 6; 
-  else if (perkEquiped[8] == -1)
+    bombNum += bombNumCost - 6; else if (perkEquiped[8] == -1)
     bombNum -= 3;
 
   playTimer = 0;
@@ -199,11 +197,6 @@ void reset()
 
   l1 = new Level1();
   l2 = new Level2();
-
-  PVector[] wayPoints = new PVector[] {
-    new PVector(width, height / 2),
-  };
-  b1 = new Boss1(wayPoints, new PVector(), new PVector(width + 100, height / 2), 0, 0, 25, 0, 0, 0, 200, 400, 0, 65, 8, 160, 0, 10, 1.0, 8.5, 0);
 }
 
 void draw()
@@ -224,19 +217,16 @@ void draw()
   {
     helpScreen();
     return;
-  } 
-  else if (inShop)
+  } else if (inShop)
   {
     shop();
     return;
-  } 
-  else if (viewingAchievements)
+  } else if (viewingAchievements)
   {
     background(127.5);
     showAchievementList();
     return;
-  } 
-  else if (viewingSaveMenu)
+  } else if (viewingSaveMenu)
   {
     saveMenu();
     return;
@@ -296,7 +286,7 @@ void draw()
     obj.show();
     popMatrix();
   }
-  
+
   if (shouldRestart || paused)
     return;
 
@@ -313,8 +303,7 @@ void draw()
   showAchievementsNotifications();
 
   if (currentLevel == 1)
-    l1.createEnemies();
-  else if (currentLevel == 2)
+    l1.createEnemies(); else if (currentLevel == 2)
     l2.createEnemies();
 }
 

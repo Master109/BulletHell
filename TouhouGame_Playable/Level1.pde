@@ -1,9 +1,5 @@
 class Level1 extends Level
 {
-  Level1()
-  {
-  }
-
   void createEnemies()
   {
     if (getEnemies().size() == 0 && tics < 870 && tics > 0)
@@ -12,12 +8,6 @@ class Level1 extends Level
       tics = 1440;
     else if (getEnemies().size() == 0 && tics < 3300 && tics > 1440)
       tics = 3300;
-
-    if (showBoss)
-    {
-      b1.run();
-      b1.show();
-    }
 
     if (tics == 0)
     {
@@ -72,7 +62,7 @@ class Level1 extends Level
     else if (tics == 3300)
     {
       gameObjects.clear();
-      showBoss = true;
+      gameObjects.add();
     }
 
     super.createEnemies();

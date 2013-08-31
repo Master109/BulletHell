@@ -1,17 +1,15 @@
 class Boss1 extends Boss
 {
-  Boss1(PVector[] wayPoints, PVector vel, PVector loc, int timer2, int shootTimeCurrent2, int shootTimeDeadline2, int state, int state2, int currentWayPoint, int bossSize, int hp, int shootTimeCurrent, int shootTimeDeadline, int xpValue, int currentSection, int timer, float rotateAmount, float speed, float bulletSpeed, float shootAngleModifier)
+  Boss1(PVector[] wayPoints, PVector vel, PVector loc, int enemySize, int timer2, int shootTimeDeadline2, int state, int state2, int currentWayPoint, int bossSize, int hp, int shootTimeCurrent, int shootTimeDeadline, int xpValue, int currentSection, int timer, float rotateAmount, float speed, float bulletSpeed, float shootAngleModifier)
   {
-    super(wayPoints, vel, loc, timer2, shootTimeCurrent2, shootTimeDeadline2, state, state2, currentWayPoint, bossSize, hp, shootTimeCurrent, shootTimeDeadline, xpValue, currentSection, timer, rotateAmount, speed, bulletSpeed, shootAngleModifier);
+    super(wayPoints, vel, loc, enemySize, timer2, shootTimeDeadline2, state, state2, currentWayPoint, bossSize, hp, shootTimeCurrent, shootTimeDeadline, xpValue, currentSection, timer, rotateAmount, speed, bulletSpeed, shootAngleModifier);
   }
-
+  
   boolean run()
   {
-    if (b1.hp <= 0)
+    if (hp <= 0)
     {
-      l1.showBoss = false;
       level1Complete = true;
-      kills ++;
       textAlign(CENTER, CENTER);
       text("Congratz!", width / 2, height / 2);
       perkPoints += 3;

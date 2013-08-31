@@ -1,9 +1,5 @@
 class Level2 extends Level
 {
-  Level2()
-  {
-  }
-
   void createEnemies()
   {
     if (getEnemies().size() == 0 && tics < 500 && tics > 0)
@@ -13,11 +9,6 @@ class Level2 extends Level
     else if (getEnemies().size() == 0 && tics < 3-00 && tics > 1000)
       tics = 3000;
 
-    if (showBoss)
-    {
-      b1.run();
-      b1.show();
-    }
     if (tics == 0)
     {
       Enemy e = new EnemyShootWigglyBulletSpread(new PVector[1], new PVector(), new PVector(width / 2 + 250, - 12.5), 10, 1, 35, 3, 25, 10, 40, 26, PI, 2.0, 7.5, HALF_PI, true);

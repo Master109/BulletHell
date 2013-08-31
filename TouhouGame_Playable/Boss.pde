@@ -54,7 +54,7 @@ class Boss extends Enemy
   {
     PVector spreadLoc = copy(targetLoc);
     float m = spreadLoc.mag();
-    
+
     for (float a = spreadLoc.heading2D(); a <= spreadLoc.heading2D() + spreadRange * 2; a += spreadRange / bulletNum)
     {
       gameObjects.add(new BulletWiggle(copy(spreadLoc), copy(loc), bulletSize, wiggleAmount, wiggleChangeDeadline, bulletSpeed));
